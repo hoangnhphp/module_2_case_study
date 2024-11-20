@@ -64,6 +64,22 @@ public class CustomerController {
         return c;
     }
 
+    public void logout() {
+        File file = new File(SRC_SESSION);
+        OutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(file);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Loi ko tim thay file");
+        } catch (IOException e) {
+            if (e.getMessage() != null) {
+                System.out.println("CustomerController:" + e.getMessage());
+            }
+        }
+    }
+
     public void update(int id, Customer customer) {
         customerService.update(id, customer);
     }

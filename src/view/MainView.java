@@ -119,7 +119,8 @@ public class MainView {
             System.out.println("1. Thông tin tài khoản");
             System.out.println("2. Chỉnh sửa tài khoản");
             System.out.println("3. Danh sách hóa đơn");
-            System.out.println("4. Quay lại");
+            System.out.println("4. Đăng xuất");
+            System.out.println("5. Quay lại");
             System.out.print("Mời bạn nhập lựa chọn: ");
             choice = inputChoice();
             switch (choice) {
@@ -133,6 +134,9 @@ public class MainView {
                     showOrder();
                     break;
                 case 4:
+                    customerController.logout();
+                    return;
+                case 5:
                     return;
             }
         }
@@ -171,13 +175,11 @@ public class MainView {
             choice = inputChoice();
             switch (choice) {
                 case 1:
-                    System.out.print("Xin mời nhập tên: ");
-                    String name = scanner.nextLine();
+                    String name = getInput("Xin mời nhập tên");
                     c.setName(name);
                     break;
                 case 2:
-                    System.out.print("Xin mời nhập email: ");
-                    String email = scanner.nextLine();
+                    String email = getInput("Xin mời nhập email");
                     while (!CustomerValidation.isValidEmail(email)) {
                         System.out.print("Xin mời nhập lại email: ");
                         email = scanner.nextLine();
@@ -191,8 +193,7 @@ public class MainView {
                     c.setEmail(email);
                     break;
                 case 3:
-                    System.out.print("Xin mời nhập số điện thoại: ");
-                    String phone = scanner.nextLine();
+                    String phone = getInput("Xin mời nhập số điện thoại");
                     while (!CustomerValidation.isValidPhone(phone)) {
                         System.out.print("Xin mời nhập lại số điện thoại: ");
                         phone = scanner.nextLine();
@@ -200,13 +201,11 @@ public class MainView {
                     c.setPhone(phone);
                     break;
                 case 4:
-                    System.out.print("Mời bạn nhập địa chỉ: ");
-                    String address = scanner.nextLine();
+                    String address = getInput("Xin mời nhập địa chỉ");
                     c.setAddress(address);
                     break;
                 case 5:
-                    System.out.print("Xin mời nhập mật khẩu: ");
-                    String pass = scanner.nextLine();
+                    String pass = getInput("Xin mời nhập mật khẩu");
                     c.setPassword(pass);
                     break;
                 case 6:
@@ -231,7 +230,7 @@ public class MainView {
                 case 1:
                     System.out.println("Đăng nhập");
                     loginForm();
-                    break;
+                    return;
                 case 2:
                     System.out.println("Đăng ký");
                     registerForm();
@@ -303,7 +302,7 @@ public class MainView {
             System.out.println("Tài khoản không tồn tại");
             loginForm();
         }
-        showMenu();
+//        showMenu();
     }
 
     public static void registerForm() {
@@ -312,10 +311,8 @@ public class MainView {
         if (!customers.isEmpty()) {
             no = customers.size() + 1;
         }
-        System.out.println("Nhập tên của bạn");
-        String name = scanner.nextLine();
-        System.out.println("Nhập email");
-        String email = scanner.nextLine();
+        String name = getInput("Nhập tên của bạn");
+        String email = getInput("Nhập email");
         while (!CustomerValidation.isValidEmail(email)) {
             System.out.println("Email sai định dạng!!!!");
             System.out.print("Xin mời nhập lại email: ");
@@ -327,17 +324,14 @@ public class MainView {
             System.out.print("Xin mời nhập lại email: ");
             email = scanner.nextLine();
         }
-        System.out.println("Nhập số điện thoại");
-        String phone = scanner.nextLine();
+        String phone = getInput("Nhập số điện thoại");
         while (!CustomerValidation.isValidPhone(phone)) {
             System.out.println("Số điện thoại sai định dạng!!!!");
             System.out.print("Xin mời nhập lại số điện thoại: ");
             phone = scanner.nextLine();
         }
-        System.out.println("Nhập địa chỉ");
-        String address = scanner.nextLine();
-        System.out.println("Nhập mật khẩu");
-        String password = scanner.nextLine();
+        String address = getInput("Nhập địa chỉ");
+        String password = getInput("Nhập mật khẩu");
         while (!CustomerValidation.isValidPassword(password)) {
             System.out.println("Mật khẩu chỉ được phép bao gồm chữ, số và ít nhất phải có 8 ký tự");
             System.out.print("Xin mời nhập lại mật khẩu: ");
@@ -347,6 +341,11 @@ public class MainView {
         Customer c = new Customer(no, name, email, phone, address, password);
         customerController.add(c);
         addCart(no);
+    }
+
+    public static String getInput(String message) {
+        System.out.print(message);
+        return scanner.nextLine();
     }
 
     public static void addCart(int userId) {
