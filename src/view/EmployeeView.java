@@ -88,6 +88,7 @@ public class EmployeeView {
 
         Cloth cloth = new Cloth(no, name, color, size, gender, quantity, price);
         clothController.add(cloth);
+        System.out.println("Thêm mới sản phẩm thành công");
     }
 
     private static int inputChoice() {

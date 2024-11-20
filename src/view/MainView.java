@@ -208,6 +208,11 @@ public class MainView {
                     break;
                 case 5:
                     String pass = getInput("Xin mời nhập mật khẩu");
+                    while (!CustomerValidation.isValidPassword(pass)) {
+                        System.out.println("Mật khẩu chỉ được phép bao gồm chữ, số và ít nhất phải có 8 ký tự");
+                        System.out.println("Xin mời nhập lại mật khẩu");
+                        pass = scanner.nextLine();
+                    }
                     c.setPassword(pass);
                     break;
                 case 6:
@@ -336,7 +341,7 @@ public class MainView {
         while (!CustomerValidation.isValidPassword(password)) {
             System.out.println("Mật khẩu chỉ được phép bao gồm chữ, số và ít nhất phải có 8 ký tự");
             System.out.println("Xin mời nhập lại mật khẩu");
-            phone = scanner.nextLine();
+            password = scanner.nextLine();
         }
 
         Customer c = new Customer(no, name, email, phone, address, password);
