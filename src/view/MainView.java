@@ -243,8 +243,7 @@ public class MainView {
 
     private static int inputChoice() {
         try {
-            int choice = Integer.parseInt(scanner.nextLine());
-            return choice;
+            return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             System.out.println("Nhập sai lựa chọn. Mời bạn nhập lại");
         } catch (Exception e) {
