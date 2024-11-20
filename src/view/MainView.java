@@ -186,7 +186,7 @@ public class MainView {
                         email = scanner.nextLine();
                     }
 
-                    while (CustomerValidation.isSameEmail(email, c.getId())) {
+                    while (!CustomerValidation.isUniqueEmail(email, c.getId())) {
                         System.out.println("Email đang bị trùng!!!!");
                         System.out.println("Xin mời nhập lại email");
                         email = scanner.nextLine();
@@ -320,7 +320,7 @@ public class MainView {
             email = scanner.nextLine();
         }
 
-        while (CustomerValidation.isSameEmail(email, 0)) {
+        while (!CustomerValidation.isUniqueEmail(email, 0)) {
             System.out.println("Email đang bị trùng!!!!");
             System.out.println("Xin mời nhập lại email");
             email = scanner.nextLine();

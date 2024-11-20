@@ -24,18 +24,18 @@ public class CustomerValidation {
         return pass.matches(regex);
     }
 
-    public static boolean isSameEmail(String email, int id) {
+    public static boolean isUniqueEmail(String email, int id) {
         List<Customer> customers = customerController.getAll();
-        boolean flag = false;
+        boolean flag = true;
         for (Customer customer : customers) {
             if (id != 0) {
                 if (customer.getId() != id && customer.getEmail().equals(email)) {
-                    flag = true;
+                    flag = false;
                     break;
                 }
             } else {
                 if (customer.getEmail().equals(email)) {
-                    flag = true;
+                    flag = false;
                     break;
                 }
             }
