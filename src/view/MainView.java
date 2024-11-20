@@ -380,7 +380,8 @@ public class MainView {
         int choice;
         while (true) {
             System.out.println("1. Đặt hàng");
-            System.out.println("2. Giảm số lượng sản phầm trong giỏ hàng đi 1 đơn vị");
+            System.out.println("2. Điều chỉnh số lượng sản phầm trong giỏ hàng");
+//            System.out.println("3. Giảm số lượng sản phầm trong giỏ hàng đi 1 đơn vị");
             System.out.println("3. Xóa sản phầm trong giỏ hàng");
             System.out.println("4. Quay lại");
             System.out.print("Mời bạn nhập lựa chọn: ");
@@ -390,8 +391,8 @@ public class MainView {
                     createOrder();
                     break;
                 case 2:
-                    System.out.println("Chọn Id sản phầm để giảm số lượng sản phẩm");
-                    decrement();
+                    System.out.println("Chọn Id sản phầm để điều chỉnh số lượng sản phẩm");
+                    adjust();
                     break;
                 case 3:
                     System.out.println("Chọn Id sản phầm để xóa sản phẩm");
@@ -437,20 +438,29 @@ public class MainView {
         }
     }
 
-    public static void decrement() {
+    public static void adjust() {
         int id = Integer.parseInt(scanner.nextLine());
         Customer customer = customerController.readFileBinary();
         Cart cart = cartController.getByUserId(customer.getId());
         CartItem item = cartItemController.getByProductIdAndCartId(id, cart.getId());
         if (item != null) {
-            int quantity = item.getQuantity();
-            if (quantity > 1) {
-                item.setQuantity(item.getQuantity() - 1);
-                cartItemController.update(item.getId(), item);
-                System.out.println("Đã giảm số lượng đi 1");
-            } else {
+            System.out.println("Hãy nhập số lượng mà bạn muốn");
+            int num = Integer.parseInt(scanner.nextLine());
+            Cloth cloth = clothController.getClothById(id);
+            while (cloth.getQuantity() < num || num < 0) {
+                System.out.println("Số lượng bạn nhập đang sai!!!");
+                System.out.println("\"" + cloth.getName() + "\" hiện đang có " + cloth.getQuantity() + " chiếc");
+                System.out.println("Vui lòng nhập lại số lượng nhỏ hơn hoặc bằng số lượng hiện có");
+                num = Integer.parseInt(scanner.nextLine());
+            }
+
+            if (num == 0) {
                 cartItemController.delete(item.getId());
                 System.out.println("Xóa sản phầm thành công");
+            } else {
+                item.setQuantity(num);
+                cartItemController.update(item.getId(), item);
+                System.out.println("tăng số lượng sản phẩm thành công");
             }
             List<CartItem> items = cartItemController.getAll();
             displayItem(items);
