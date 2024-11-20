@@ -340,6 +340,7 @@ public class MainView {
         Customer c = new Customer(no, name, email, phone, address, password);
         customerController.add(c);
         addCart(no);
+        System.out.println("Đăng ký tài khoản thành công.");
     }
 
     public static String getInput(String message) {
