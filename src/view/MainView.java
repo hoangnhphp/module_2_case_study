@@ -176,6 +176,11 @@ public class MainView {
             switch (choice) {
                 case 1:
                     String name = getInput("Xin mời nhập tên");
+                    while (!CustomerValidation.isValidName(name)) {
+                        System.out.println("Tên chỉ được phép là chữ");
+                        System.out.println("Xin mời nhập lại tên");
+                        name = scanner.nextLine();
+                    }
                     c.setName(name);
                     break;
                 case 2:
@@ -318,6 +323,11 @@ public class MainView {
             no = customers.size() + 1;
         }
         String name = getInput("Nhập tên của bạn");
+        while (!CustomerValidation.isValidName(name)) {
+            System.out.println("Tên chỉ được phép là chữ");
+            System.out.println("Xin mời nhập lại tên");
+            name = scanner.nextLine();
+        }
         String email = getInput("Nhập email");
         while (!CustomerValidation.isValidEmail(email)) {
             System.out.println("Email sai định dạng!!!!");

@@ -42,4 +42,9 @@ public class CustomerValidation {
         }
         return flag;
     }
+
+    public static boolean isValidName(String name) {
+        String regex = "^[a-zA-z ]+$";
+        return name.matches(regex);
+    }
 }
