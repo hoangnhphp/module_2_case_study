@@ -19,13 +19,13 @@ public class CustomerController {
         customerService.add(c);
     }
 
-    public int login (String email, String password) {
+    public boolean login (String email, String password) {
         Customer c = customerService.getByEmailAndPassword(email, password);
         if (c != null) {
             saveSession(c);
-            return 1;
+            return true;
         } else {
-            return 0;
+            return false;
         }
     }
 

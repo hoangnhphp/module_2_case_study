@@ -297,8 +297,8 @@ public class MainView {
         System.out.println("Nhập mật khẩu");
         String password = scanner.nextLine();
 
-        int check = customerController.login(email, password);
-        if (check == 0) {
+        boolean check = customerController.login(email, password);
+        if (!check) {
             System.out.println("Tài khoản không tồn tại");
             loginForm();
         }
@@ -315,26 +315,26 @@ public class MainView {
         String email = getInput("Nhập email");
         while (!CustomerValidation.isValidEmail(email)) {
             System.out.println("Email sai định dạng!!!!");
-            System.out.print("Xin mời nhập lại email: ");
+            System.out.println("Xin mời nhập lại email");
             email = scanner.nextLine();
         }
 
         while (!CustomerValidation.isSameEmail(email, 0)) {
             System.out.println("Email đang bị trùng!!!!");
-            System.out.print("Xin mời nhập lại email: ");
+            System.out.println("Xin mời nhập lại email");
             email = scanner.nextLine();
         }
         String phone = getInput("Nhập số điện thoại");
         while (!CustomerValidation.isValidPhone(phone)) {
             System.out.println("Số điện thoại sai định dạng!!!!");
-            System.out.print("Xin mời nhập lại số điện thoại: ");
+            System.out.println("Xin mời nhập lại số điện thoại");
             phone = scanner.nextLine();
         }
         String address = getInput("Nhập địa chỉ");
         String password = getInput("Nhập mật khẩu");
         while (!CustomerValidation.isValidPassword(password)) {
             System.out.println("Mật khẩu chỉ được phép bao gồm chữ, số và ít nhất phải có 8 ký tự");
-            System.out.print("Xin mời nhập lại mật khẩu: ");
+            System.out.println("Xin mời nhập lại mật khẩu");
             phone = scanner.nextLine();
         }
 
