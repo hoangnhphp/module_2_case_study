@@ -104,7 +104,7 @@ public class MainView {
         System.out.println("Xin mời nhập từ tìm kiếm");
         String name = scanner.nextLine();
         List<Cloth> cloths = clothController.getClothsByName(name);
-        if (cloths.size() != 0) {
+        if (!cloths.isEmpty()) {
             displayCloths(cloths);
         } else {
             System.out.println("Không tìm thấy sản phẩm");
@@ -145,7 +145,7 @@ public class MainView {
     private static void showOrder() {
         Customer c = customerController.readFileBinary();
         List<Order> orders = orderController.getByUserId(c.getId());
-        if (orders.size() != 0) {
+        if (!orders.isEmpty()) {
             for (Order order : orders) {
                 System.out.println(order.getOrderNo() + " | " + order.getOrderDateTime() + " | " + order.getOrderStatus() + " | " + order.getTotalPrice());
             }
@@ -181,13 +181,14 @@ public class MainView {
                 case 2:
                     String email = getInput("Xin mời nhập email");
                     while (!CustomerValidation.isValidEmail(email)) {
-                        System.out.print("Xin mời nhập lại email: ");
+                        System.out.println("Email sai định dạng!!!!");
+                        System.out.println("Xin mời nhập lại email");
                         email = scanner.nextLine();
                     }
 
-                    while (!CustomerValidation.isSameEmail(email, c.getId())) {
+                    while (CustomerValidation.isSameEmail(email, c.getId())) {
                         System.out.println("Email đang bị trùng!!!!");
-                        System.out.print("Xin mời nhập lại email: ");
+                        System.out.println("Xin mời nhập lại email");
                         email = scanner.nextLine();
                     }
                     c.setEmail(email);
@@ -195,7 +196,8 @@ public class MainView {
                 case 3:
                     String phone = getInput("Xin mời nhập số điện thoại");
                     while (!CustomerValidation.isValidPhone(phone)) {
-                        System.out.print("Xin mời nhập lại số điện thoại: ");
+                        System.out.println("Số điện thoại sai định dạng!!!!");
+                        System.out.println("Xin mời nhập lại số điện thoại");
                         phone = scanner.nextLine();
                     }
                     c.setPhone(phone);
@@ -318,7 +320,7 @@ public class MainView {
             email = scanner.nextLine();
         }
 
-        while (!CustomerValidation.isSameEmail(email, 0)) {
+        while (CustomerValidation.isSameEmail(email, 0)) {
             System.out.println("Email đang bị trùng!!!!");
             System.out.println("Xin mời nhập lại email");
             email = scanner.nextLine();
@@ -344,7 +346,7 @@ public class MainView {
     }
 
     public static String getInput(String message) {
-        System.out.print(message);
+        System.out.println(message);
         return scanner.nextLine();
     }
 

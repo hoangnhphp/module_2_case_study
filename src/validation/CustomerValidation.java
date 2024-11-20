@@ -13,7 +13,7 @@ public class CustomerValidation {
     }
 
     public static boolean isValidEmail(String email) {
-        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]+$";
 
         return email.matches(regex);
     }
